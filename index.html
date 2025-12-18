@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HALAKU WOLF INTELLIGENCE</title>
+  <meta name="description" content="HALAKU WOLF INTELLIGENCE - SIM Database and CNIC Verification" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Poppins',sans-serif;
+      background: #000;
+      color:#fff;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    /* HEAVY SNOWFALL EFFECT */
+    .snowfall {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9997;
+      display: none;
+    }
+
+    .snowflake {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: snowfall linear forwards;
+    }
+
+    @keyframes snowfall {
+      0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(30px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* SINGLE FALLING TEXT EFFECT */
+    .falling-name {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3rem;
+      font-weight: 900;
+      z-index: 9998;
+      animation: nameFall 5s ease-in-out forwards;
+      pointer-events: none;
+      /* COLORFUL GLASS FONTS */
+      background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00, #ff00ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 
+        0 0 20px rgba(255,255,255,0.8),
+        0 0 40px rgba(255,255,255,0.6),
+        0 0 60px rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 15px;
+    }
+
+    @keyframes nameFall {
+      0% {
+        transform: translateX(-50%) translateY(-100px) scale(0.5);
+        opacity: 0;
+      }
+      20% {
+        transform: translateX(-50%) translateY(200px) scale(1.2);
+        opacity: 1;
+      }
+      40% {
+        transform: translateX(-50%) translateY(400px) scale(1);
+        opacity: 1;
+      }
+      60% {
+        transform: translateX(-50%) translateY(600px) scale(1.1);
+        opacity: 1;
+      }
+      80% {
+        transform: translateX(-50%) translateY(800px) scale(0.9);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateX(-50%) translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .container{
+      max-width:800px;
+      margin:0 auto;
+      padding:20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    header{text-align:center;margin:30px 0 20px}
+    .brand-title{
+      font-weight: 700;
+      font-size: clamp(32px, 8vw, 48px);
+      background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-weight:500;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      font-size:.8rem;
+      color:#888;
+    }
+
+    .verified{
+      margin:20px auto;
+      max-width:400px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius:12px;
+      padding:12px 20px;
+      backdrop-filter: blur(10px);
+    }
+    .verified i{color: #00ff00;}
+    .owner{
+      font-size:.9rem;
+      font-weight: 600;
+      background: linear-gradient(45deg, #ff0000, #00ff00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .card{
+      border-radius:15px;
+      padding:25px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .card h2{
+      font-size:1.3rem;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      text-align:center;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #ff0000, #00ff00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .form{display:grid; gap:15px; margin-top:0}
+    
+    .search-type {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    
+    .search-type label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    
+    .search-type input[type="radio"] { 
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #888;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .search-type input[type="radio"]:checked {
+      border-color: #00ff00;
+    }
+    
+    .search-type input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 8px;
+      height: 8px;
+      background: #00ff00;
+      border-radius: 50%;
+    }
+
+    .input-wrap{
+      position:relative;
+    }
+    
+    .input-wrap i{
+      position:absolute;
+      left:15px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#00ff00;
+      font-size: 1.1rem;
+    }
+    
+    input#searchInput{
+      width:100%;
+      padding:15px 15px 15px 45px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.2);
+      background:rgba(0,0,0,0.3);
+      color:#fff;
+      font-size:1rem;
+      outline:none;
+      transition:all 0.3s ease;
+    }
+    
+    input#searchInput:focus{
+      border-color: #00ff00;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+    
+    .input-guidance{
+      font-size: 0.8rem;
+      text-align: center;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:16px;
+      width:100%;
+      background: linear-gradient(45deg, #ff0000, #0000ff);
+      color:#fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+    }
+    
+    .btn:active{
+      transform: translateY(0);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .social-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #fff;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .social-icon:hover {
+      transform: scale(1.1);
+      background: rgba(0, 255, 0, 0.2);
+    }
+
+    #result{
+      margin-top:20px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.2);
+      background:rgba(0,0,0,0.3);
+      display:none;
+      backdrop-filter: blur(10px);
+    }
+    
+    #result.show{display:block}
+    
+    .result-header{
+      padding: 15px 20px;
+      border-bottom:1px solid rgba(0, 255, 0, 0.3);
+      font-size:1rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(45deg, #ff0000, #00ff00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .result-count{
+      background: linear-gradient(45deg, #ff0000, #00ff00);
+      color: #000;
+      padding: 4px 12px;
+      font-size: .8rem;
+      border-radius: 15px;
+      font-weight: 700;
+    }
+    
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 20px;
+    }
+    
+    .result-box{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:8px;
+      padding:15px;
+    }
+    
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 0;
+      border-bottom:1px dashed rgba(255,255,255,0.1);
+    }
+    
+    .row:last-child{border-bottom:none}
+    
+    .label{
+      font-weight:600;
+      font-size:.9rem;
+      background: linear-gradient(45deg, #ff0000, #00ff00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .value{
+      color:#fff;
+      font-size:.9rem;
+      text-align:right;
+    }
+    
+    .msg{
+      padding:25px;
+      text-align:center;
+    }
+    
+    .msg.error{
+      color:#ffcc00;
+    }
+
+    /* WAITING MESSAGE - 5 SECONDS */
+    .waiting-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 220px;
+      border: 3px solid #ff0000;
+      border-radius: 15px;
+      text-align: center;
+      z-index: 10000;
+      display: none;
+      box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+      overflow: hidden;
+      background: url('https://i.ibb.co/KxR4BfdG/IMG-20250117-232903-865.jpg') center/cover no-repeat;
+      background-color: #000;
+    }
+
+    .waiting-message.show {
+      display: block;
+      animation: messagePop 0.3s ease-out;
+    }
+
+    @keyframes messagePop {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+    
+    .waiting-content {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+    }
+    
+    .waiting-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+      text-shadow: 
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        0 0 30px #ff0000;
+      line-height: 1.3;
+    }
+    
+    .waiting-line1 {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 3px;
+    }
+    
+    .waiting-line2 {
+      display: block;
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-shadow: 
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        0 0 30px #ff0000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+    
+    .footer-links {
+      margin-bottom: 8px;
+    }
+    
+    .footer-links a {
+      color: #00ff00;
+    }
+    
+    .footer-links span {
+      margin: 0 10px;
+      color: #888;
+    }
+
+    .floating-wa {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+      z-index: 100;
+      transition: transform 0.3s;
+    }
+    
+    .floating-wa:hover {
+      transform: scale(1.1);
+    }
+
+    @media (min-width: 700px) {
+      .result-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  
+  <!-- HEAVY SNOWFALL EFFECT -->
+  <div class="snowfall" id="snowfall"></div>
+  
+  <!-- WAITING MESSAGE -->
+  <div class="waiting-message" id="waitingMessage">
+    <div class="waiting-content">
+      <div class="waiting-text">
+        <span class="waiting-line1">WAITING FOR</span>
+        <span class="waiting-line2">QURESHI HACKER ❤️</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="brand-title">HALAKU WOLF INTELLIGENCE</div>
+      <div class="subtitle">ADVANCED DATA VERIFICATION SYSTEM</div>
+    </header>
+
+    <div class="verified">
+      <i class="fa-solid fa-circle-check"></i>
+      <div class="owner">SECURE PAKISTAN DATABASE</div>
+    </div>
+
+    <div class="main-grid">
+      <section class="card" id="searchCard">
+        <h2>Data Search Portal</h2>
+        <form id="form" class="form" autocomplete="off">
+          
+          <div class="search-type">
+            <label>
+              <input type="radio" name="search_type" value="phone" checked>
+              Phone
+            </label>
+            <label>
+              <input type="radio" name="search_type" value="cnic">
+              CNIC
+            </label>
+          </div>
+
+          <div class="input-wrap">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <input id="searchInput" inputmode="tel" placeholder="Enter number without +92 (e.g. 03132737647)" maxlength="11" />
+          </div>
+          <p class="input-guidance">Enter valid Pakistani number e.g. 03132737647</p>
+          <button class="btn" type="submit" id="searchBtn">
+            <i class="fa-solid fa-bolt-lightning"></i> SEARCH NOW
+          </button>
+        </form>
+        <div class="social-icons">
+          <a href="https://wa.me/923132737647" target="_blank" class="social-icon">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://t.me/white_hat0" target="_blank" class="social-icon">
+            <i class="fab fa-telegram"></i>
+          </a>
+          <a href="mailto: abdulkabir1821@gmail.com" class="social-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </div>
+        
+        <div id="result"></div>
+        
+        <p id="footerCredit" style="text-align:center; color:#888; font-size: 0.8rem; margin-top: 15px;"></p>
+        
+      </section>
+    </div>
+  </div>
+
+  <a href="https://chat.whatsapp.com/C2LIMInw3UL8oj5dD9N4Nv" target="_blank" class="floating-wa">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <footer>
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <span>|</span>
+        <a href="#">Terms of Service</a>
+    </div>
+    <p>© 2025 HALAKU WOLF INTELLIGENCE | ALL RIGHTS RESERVED</p>
+  </footer>
+
+  <script>
+    // HEAVY SNOWFALL EFFECT
+    function startSnowfall() {
+      const snowfall = document.getElementById('snowfall');
+      snowfall.style.display = 'block';
+      snowfall.innerHTML = '';
+      
+      // Create 300 snowflakes for VERY heavy snowfall
+      for (let i = 0; i < 300; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        
+        const size = Math.random() * 8 + 2;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 4 + 2;
+        const delay = Math.random() * 3;
+        
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${left}%`;
+        snowflake.style.animationDuration = `${duration}s`;
+        snowflake.style.animationDelay = `${delay}s`;
+        
+        snowfall.appendChild(snowflake);
+      }
+      
+      // Stop snowfall after 5 seconds
+      setTimeout(() => {
+        snowfall.style.display = 'none';
+        snowfall.innerHTML = '';
+      }, 5000);
+    }
+
+    // SINGLE FALLING NAME EFFECT
+    function startFallingName() {
+      const fallingName = document.createElement('div');
+      fallingName.className = 'falling-name';
+      fallingName.textContent = ' QURESHI HACKER ❤️';
+      fallingName.style.animationDuration = '5s';
+      
+      document.body.appendChild(fallingName);
+      
+      // Remove element after animation
+      setTimeout(() => {
+        fallingName.remove();
+      }, 5000);
+    }
+
+    // WAITING MESSAGE FUNCTION - 5 SECONDS
+    function showWaitingMessage() {
+      const waitingMessage = document.getElementById('waitingMessage');
+      waitingMessage.classList.add('show');
+      
+      setTimeout(() => {
+        waitingMessage.classList.remove('show');
+      }, 5000);
+    }
+
+    // MAIN CODE
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('form');
+      const searchBtn = document.getElementById('searchBtn');
+      const resultDiv = document.getElementById('result');
+      const searchInput = document.getElementById('searchInput');
+      const searchTypeRadios = document.querySelectorAll('input[name="search_type"]');
+      const guidanceText = document.querySelector('.input-guidance');
+      const footerCredit = document.getElementById('footerCredit');
+
+      function updateInputUI(type) {
+        const icon = document.querySelector('.input-wrap i');
+        if (type === 'phone') {
+          searchInput.placeholder = 'Enter number without +92 (e.g. 03209261459)';
+          searchInput.maxLength = 11;
+          searchInput.inputMode = 'tel';
+          icon.className = 'fa-solid fa-mobile-screen';
+          guidanceText.textContent = 'Enter valid Pakistani number e.g. 03132737647';
+        } else {
+          searchInput.placeholder = 'Enter CNIC without dashes (e.g. 320212345678)';
+          searchInput.maxLength = 13;
+          searchInput.inputMode = 'numeric';
+          icon.className = 'fa-solid fa-id-card';
+          guidanceText.textContent = 'Enter a valid 13-digit CNIC without dashes.';
+        }
+        searchInput.value = '';
+      }
+
+      updateInputUI('phone');
+
+      searchTypeRadios.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+          updateInputUI(event.target.value);
+        });
+      });
+
+      function show(html) {
+        resultDiv.innerHTML = html;
+        resultDiv.classList.add('show');
+      }
+
+      function formatKey(key) {
+        return key.split('_')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      }
+
+      function showError(message) {
+        show(`<div class="msg error"><i class="fas fa-exclamation-triangle"></i><p>${message}</p></div>`);
+      }
+
+      function showPremiumContact(num) {
+        const whatsappNumber = '923132737647';
+        const message = `ASALAMUALIKUM I NEED PREMIUM DATA: ${num}`;
+        const whatsappUrl = `https://wa.me/923132737647}`;
+        const html = `
+          <div class="msg error">
+              <i class="fas fa-crown" style="color: #ffcc00;"></i>
+              <p>Premium Data Required</p>
+              <p style="color: #888; font-size: 0.9rem; margin-top: 8px;">
+                  Contact admin for premium access
+              </p>
+              <a href="${whatsappUrl}" target="_blank" class="social-icon" style="margin-top: 15px;">
+                  <i class="fab fa-whatsapp"></i>
+              </a>
+          </div>`;
+        show(html);
+      }
+
+      async function fetchData(query) {
+        footerCredit.innerText = '';
+
+        try {
+          const PROXY_URL = 'https://solo.f-a-k.workers.dev/';
+          const API_BASE_URL = 'https://fam-official.serv00.net/api/database.php';
+          const targ
